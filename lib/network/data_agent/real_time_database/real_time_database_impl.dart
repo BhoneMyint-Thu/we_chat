@@ -14,12 +14,21 @@ class RealTimeDatabaseImpl extends RealTimeDataBase{
   var auth=FirebaseAuth.instance;
 
   @override
-  Future sendMessage(String friendId,MessageVO messageVO)=>_database
-      .child(kRootNodeForMessages)
-      .child(auth.currentUser?.uid??'')
-      .child(friendId)
-      .child(DateTime.now().millisecondsSinceEpoch.toString())
-      .set(messageVO.toJson());
+  Future sendMessage(String friendId,MessageVO messageVO) {
+    _database
+        .child(kRootNodeForMessages)
+        .child(friendId)
+        .child(auth.currentUser?.uid ?? '')
+        .child(DateTime.now().millisecondsSinceEpoch.toString())
+        .set(messageVO.toJson());
+
+    return _database
+        .child(kRootNodeForMessages)
+        .child(auth.currentUser?.uid ?? '')
+        .child(friendId)
+        .child(DateTime.now().millisecondsSinceEpoch.toString())
+        .set(messageVO.toJson());
+  }
 
   @override
   Stream<List<MessageVO>?> getMessages(String friendId)=>_database

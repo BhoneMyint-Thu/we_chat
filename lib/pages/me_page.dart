@@ -38,7 +38,7 @@ class MePage extends StatelessWidget {
                       width: kProfileWidth,
                       child: EasyNetworkImage(
                           ifNullCondition: profilePic.isEmpty,
-                          networkImage: profilePic)),
+                          networkImage: profilePic,boxFit: BoxFit.cover,)),
                 );
               },
             ),
