@@ -78,6 +78,7 @@ class ContactPage extends StatelessWidget {
                           networkImage: element.profilePic ?? '',
                           imgWidth: kSP50x,
                           imgHeight: kSP50x,
+                          boxFit: BoxFit.cover,
                         ),
                       ),
                       onTap: () {

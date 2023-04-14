@@ -73,6 +73,7 @@ class ChatPage extends StatelessWidget {
                                 chattingFriends[index].profilePic ?? '',
                             imgWidth: kSP50x,
                             imgHeight: kSP50x,
+                                boxFit: BoxFit.cover,
                           )),
                           onTap: () {
                             context.navigateToNextScreen(

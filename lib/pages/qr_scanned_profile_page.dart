@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:we_chat/constant/dimens.dart';
+import 'package:we_chat/easy_widgets/easy_network_image.dart';
 import 'package:we_chat/easy_widgets/easy_text_widget.dart';
 import 'package:we_chat/utils/extension.dart';
 
@@ -33,9 +34,7 @@ class QrScannedProfilePage extends StatelessWidget {
                   child: SizedBox(
                     height: kQrScannedProfileHeight,
                     width: kQrScannedProfileWidth,
-                    child: (profilePic.isEmpty)
-                        ? Image.asset(AssetsImagesUtil.kDefaultProfileImage)
-                        : Image.network(profilePic),
+                    child: EasyNetworkImage(ifNullCondition: profilePic.isEmpty,networkImage: profilePic,boxFit: BoxFit.cover,)
                   ),
                 ),
               ),
