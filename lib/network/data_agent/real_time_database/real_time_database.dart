@@ -8,4 +8,6 @@ abstract class RealTimeDataBase{
   Stream<List<String>?> getChattingFriends();
 
   Future<MessageVO> getLastMessage(String friendId);
+
+  Future<void> deleteMessage(String friendId,String messageId);
 }

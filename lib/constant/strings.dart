@@ -63,6 +63,7 @@ const String kNoChatHistoryText='No chat history yet';
 
 //chatting page
 const String kMessageHintText='Message';
+const String kDeleteText='Delete';
 
 //contact page
 const String kContactPageAppBarTitle='Contact';

@@ -36,4 +36,7 @@ abstract class WeChatApply{
 
   Stream<List<UserVO>?> getUsersFromBoxAsStream();
 
+  Future<void> deleteMessage(String friendId,String messageId);
+
+
 }

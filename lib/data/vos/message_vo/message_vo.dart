@@ -12,7 +12,10 @@ class MessageVO{
   @JsonKey(name: 'sender_id')
   String ? senderId;
 
-  MessageVO(this.message, this.dateTime, this.senderId);
+  @JsonKey(name: 'message_id')
+  String ? messageId;
+
+  MessageVO(this.message, this.dateTime, this.senderId,this.messageId);
 
   factory MessageVO.fromJson(Map<String,dynamic>json)=>_$MessageVOFromJson(json);
 

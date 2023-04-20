@@ -31,10 +31,11 @@ class ChattingPageBloc extends ChangeNotifier {
   /////////////////Methods////////////////////
   ////////////////////////////////////////////
   MessageVO createMessage(){
-   return  MessageVO(_textEditingController.text, DateTime.now(),_apply.getLoggedInUserId());
+   return  MessageVO(_textEditingController.text, DateTime.now(),_apply.getLoggedInUserId(),DateTime.now().millisecondsSinceEpoch.toString());
   }
 
   Future sendMessage(String friendId)=>_apply.sendMessage(friendId, createMessage()).whenComplete(() => _scrollToBottom());
+
 
   void _scrollToBottom() {
     if (_scrollController.hasClients) {
@@ -45,6 +46,8 @@ class ChattingPageBloc extends ChangeNotifier {
       );
     }
   }
+
+  Future deleteMessage(String friendId,String messageId)=>_apply.deleteMessage(friendId, messageId);
 
 
 
@@ -68,6 +71,8 @@ class ChattingPageBloc extends ChangeNotifier {
 
   @override
   void dispose() {
+    _scrollController.dispose();
+    _textEditingController.dispose();
     _isDispose = true;
     super.dispose();
   }

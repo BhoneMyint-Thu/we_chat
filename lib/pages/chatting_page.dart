@@ -43,17 +43,14 @@ class ChattingPage extends StatelessWidget {
                           context.getChattingPageBloc().getScrollController,
                       floatingHeader: true,
                       elements: messages,
-
                       itemComparator: (item1, item2) =>
                           item1.dateTime!.compareTo(item2.dateTime!),
-
                       groupBy: (element) => DateTime(
                         element.dateTime!.year,
                         element.dateTime!.month,
                         element.dateTime!.day,
                         element.dateTime!.hour,
                       ),
-
                       groupHeaderBuilder: (element) => SizedBox(
                         height: 50,
                         child: Center(
@@ -62,7 +59,8 @@ class ChattingPage extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(kSP10x),
                               child: EasyTextWidget(
-                                text: DateFormat('EEEE, h a').format(element.dateTime!),
+                                text: DateFormat('EEEE, h a')
+                                    .format(element.dateTime!),
                                 fontSize: kFZ10,
                                 color: Colors.grey,
                               ),
@@ -70,7 +68,6 @@ class ChattingPage extends StatelessWidget {
                           ),
                         ),
                       ),
-
                       itemBuilder: (context, element) {
                         ////////////////////////////////////////////
                         /////////////////message ///////////////////
@@ -79,13 +76,48 @@ class ChattingPage extends StatelessWidget {
                           alignment: (element.senderId == friendId)
                               ? Alignment.centerLeft
                               : Alignment.centerRight,
-                          child: Card(
-                            elevation: kMessageElevation,
-                            color: Colors.blue,
-                            child: Padding(
-                              padding: const EdgeInsets.all(kSP10x),
-                              child: EasyTextWidget(
-                                text: element.message ?? '',
+                          child: GestureDetector(
+                            onLongPress: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (_) {
+                                  return SizedBox(
+                                    height: kBtmSheetHeight,
+                                    child: Center(
+                                      child: MaterialButton(
+                                        onPressed: () {
+                                          context
+                                              .getChattingPageBloc()
+                                              .deleteMessage(friendId,
+                                                  element.messageId ?? '')
+                                              .whenComplete(() {
+
+                                            context.navigateBack(context);
+                                          });
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: const [
+                                            Icon(Icons.delete),
+                                            EasyTextWidget(
+                                              text: kDeleteText,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Card(
+                              elevation: kMessageElevation,
+                              color: Colors.blue,
+                              child: Padding(
+                                padding: const EdgeInsets.all(kSP10x),
+                                child: EasyTextWidget(
+                                  text: element.message ?? '',
+                                ),
                               ),
                             ),
                           ),
@@ -102,15 +134,16 @@ class ChattingPage extends StatelessWidget {
                   title: TextField(
                     controller: context.getChattingPageBloc().getTextController,
                     decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(vertical: kSP15x,horizontal: kSP10x),
-                      fillColor: Colors.black,
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: kSP15x, horizontal: kSP10x),
+                        fillColor: Colors.black,
                         filled: true,
                         hintText: kMessageHintText,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(kSP20x),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
+                            borderSide: const BorderSide(color: Colors.grey),
                             borderRadius: BorderRadius.circular(kSP20x))),
                   ),
                   trailing: IconButton(

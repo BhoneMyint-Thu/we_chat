@@ -72,6 +72,9 @@ class WeChatApplyImpl extends WeChatApply{
   @override
   void clearBox()=>_weChatDAO.clearBox();
 
+  @override
+  Future<void> deleteMessage(String friendId, String messageId)=>_realTimeDataBase.deleteMessage(friendId, messageId);
+
 
 
 

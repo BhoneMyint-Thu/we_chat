@@ -41,6 +41,7 @@ const double kBottomNavBarElevation=15;
 
 //chatting page
 const double kMessageElevation=5;
+const double kBtmSheetHeight=100;
 
 //contact page
 const double kGroupHeaderHeight=50;
