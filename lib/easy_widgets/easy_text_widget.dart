@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class EasyTextWidget extends StatelessWidget {
-  const EasyTextWidget({Key? key, required this.text,this.color=Colors.white,this.fontSize=15,this.textDecor}) : super(key: key);
+  const EasyTextWidget({Key? key, required this.text,this.color=Colors.white,this.fontSize=15,this.textDecor,this.overflow=TextOverflow.fade}) : super(key: key);
 
   final String text;
   final Color color;
   final double fontSize;
   final TextDecoration ? textDecor;
+  final TextOverflow  overflow;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class EasyTextWidget extends StatelessWidget {
         decoration: textDecor,
       color: color,
       fontSize: fontSize,
-      overflow: TextOverflow.fade,
+      overflow:overflow,
       // decoration: TextDecoration.underline,
     ),
     );

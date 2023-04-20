@@ -16,6 +16,7 @@ class ChattingPageBloc extends ChangeNotifier {
   ////////////////////////////////////////////
   bool _isDispose = false;
   List<MessageVO> _messages=[];
+  bool _isEmptyTextField=true;
 
   ////////////////////////////////////////////
   /////////////////Getters////////////////////
@@ -25,6 +26,8 @@ class ChattingPageBloc extends ChangeNotifier {
   TextEditingController get getTextController=>_textEditingController;
 
   ScrollController get getScrollController=>_scrollController;
+
+  bool get getIsEmptyTextField=>_isEmptyTextField;
 
 
   ////////////////////////////////////////////
@@ -48,6 +51,7 @@ class ChattingPageBloc extends ChangeNotifier {
   }
 
   Future deleteMessage(String friendId,String messageId)=>_apply.deleteMessage(friendId, messageId);
+
 
 
 

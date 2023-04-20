@@ -24,6 +24,7 @@ class EasyNetworkImage extends StatelessWidget {
             AssetsImagesUtil.kDefaultProfileImage,
             width: imgWidth,
             height: imgHeight,
+      fit: boxFit,
           )
         : Image.network(
             networkImage,

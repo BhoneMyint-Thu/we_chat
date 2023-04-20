@@ -14,5 +14,11 @@ class FireStorageImpl extends FireStorage{
       .child(uId)
       .putFile(file)
       .then((taskSnapShot) => taskSnapShot.ref.getDownloadURL());
+
+  @override
+  Future<void> deleteFileFromFireBaseStorage(String uid)=>_firebaseStorage
+      .ref(kRootNodeForFirebaseStorageUpload)
+      .child(uid)
+      .delete();
   
 }

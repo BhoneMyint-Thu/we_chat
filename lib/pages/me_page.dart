@@ -32,13 +32,69 @@ class MePage extends StatelessWidget {
             Selector<MePageBloc, String>(
               selector: (_, obj) => obj.getProfilePic,
               builder: (context, profilePic, _) {
-                return ClipOval(
-                  child: SizedBox(
-                      height: kProfileHeight,
-                      width: kProfileWidth,
-                      child: EasyNetworkImage(
-                          ifNullCondition: profilePic.isEmpty,
-                          networkImage: profilePic,boxFit: BoxFit.cover,)),
+                return GestureDetector(
+                  onTap:() {
+                    showModalBottomSheet(
+                      context: context,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(kSP20x)),
+                      builder: (_) => SizedBox(
+                        height: MediaQuery.of(context).size.height *
+                            signUpPageBottomSheetHeight,
+                        child: Column(
+                          children: [
+                            ListTile(
+                              shape: const Border(
+                                  bottom: BorderSide(
+                                      width: kSP1x, color: Colors.grey)),
+                              onTap: () {
+                                context.getMePageBloc().pickImage(camera: true).whenComplete(() => context.getMePageBloc().changeProfilePic());
+                                context.navigateBack(context);
+                              },
+                              title: const Center(
+                                child: EasyTextWidget(
+                                  text: kCameraText,
+                                ),
+                              ),
+                            ),
+                            ListTile(
+                              onTap: () {
+                                context.getMePageBloc().pickImage(gallery: true).whenComplete(() => context.getMePageBloc().changeProfilePic());
+                                context.navigateBack(context);
+                              },
+                              shape: const Border(
+                                  bottom: BorderSide(
+                                      width: kSP1x, color: Colors.grey)),
+                              title: const Center(
+                                child: EasyTextWidget(
+                                  text: kGalleryText,
+                                ),
+                              ),
+                            ),
+                            ListTile(
+                              onTap: () {
+                                context.getMePageBloc().pickImage(remove: true);
+                                context.navigateBack(context);
+                              },
+                              title: const Center(
+                                child: EasyTextWidget(
+                                  text: kRemoveText,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  child: ClipOval(
+                    child: SizedBox(
+                        height: kProfileHeight,
+                        width: kProfileWidth,
+                        child: EasyNetworkImage(
+                            ifNullCondition: profilePic.isEmpty,
+                            networkImage: profilePic,boxFit: BoxFit.cover,)),
+                  ),
                 );
               },
             ),

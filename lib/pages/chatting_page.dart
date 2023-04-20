@@ -37,7 +37,7 @@ class ChattingPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(kSP10x),
+                    padding: const EdgeInsets.all(kSP20x),
                     child: GroupedListView<MessageVO, DateTime>(
                       controller:
                           context.getChattingPageBloc().getScrollController,
@@ -113,6 +113,7 @@ class ChattingPage extends StatelessWidget {
                             child: Card(
                               elevation: kMessageElevation,
                               color: Colors.blue,
+                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(kSP10x),topLeft:  Radius.circular(kSP10x))),
                               child: Padding(
                                 padding: const EdgeInsets.all(kSP10x),
                                 child: EasyTextWidget(
@@ -146,16 +147,18 @@ class ChattingPage extends StatelessWidget {
                             borderSide: const BorderSide(color: Colors.grey),
                             borderRadius: BorderRadius.circular(kSP20x))),
                   ),
-                  trailing: IconButton(
+                  trailing:IconButton(
                     color: Colors.blue,
                     onPressed: () {
-                      context
-                          .getChattingPageBloc()
-                          .sendMessage(friendId)
-                          .whenComplete(() => context
-                              .getChattingPageBloc()
-                              .getTextController
-                              .clear());
+                      if(context.getChattingPageBloc().getTextController.text.isNotEmpty){
+                        context
+                            .getChattingPageBloc()
+                            .sendMessage(friendId)
+                            .whenComplete(() => context
+                            .getChattingPageBloc()
+                            .getTextController
+                            .clear());
+                      }
                     },
                     icon: const Icon(Icons.send),
                   ),

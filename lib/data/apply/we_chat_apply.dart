@@ -38,5 +38,9 @@ abstract class WeChatApply{
 
   Future<void> deleteMessage(String friendId,String messageId);
 
+  Future<String> updateProfilePic(String ? profilePic);
+
+  Future<void> deleteProfilePic();
+
 
 }

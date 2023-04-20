@@ -56,7 +56,7 @@ class FirebaseAuthenticationImpl extends FirebaseAuthentication {
           });
           if (user.profilePic != null && user.id != null) {
             await _fireStorage
-                .upLoadFileToFirebaseStorage(File(user.profilePic!), user.id!)
+                .upLoadFileToFirebaseStorage(File(user.profilePic??''), user.id??'')
                 .then((value) => user.profilePic = value);
           }
           _cloudFireStoreDatabase.createNewUser(user);

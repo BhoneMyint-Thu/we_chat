@@ -12,4 +12,9 @@ abstract class CloudFireStoreDatabase{
   Future<bool> checkIfAlreadyFriend(String friendId);
 
   Stream<List<UserVO>?> getFriendListAsStream();
+
+  Future<String> updateProfilePic(String id,String ? profilePic);
+
+  Future<String?> deleteProfilePic(String id);
+
 }

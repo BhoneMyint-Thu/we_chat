@@ -75,6 +75,12 @@ class WeChatApplyImpl extends WeChatApply{
   @override
   Future<void> deleteMessage(String friendId, String messageId)=>_realTimeDataBase.deleteMessage(friendId, messageId);
 
+  @override
+  Future<String> updateProfilePic(String? profilePic) =>_cloudFireStore.updateProfilePic(getLoggedInUserId()??'', profilePic);
+
+  @override
+  Future<void> deleteProfilePic()=>_cloudFireStore.deleteProfilePic(getLoggedInUserId()??'');
+
 
 
 

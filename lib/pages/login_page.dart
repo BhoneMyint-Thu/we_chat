@@ -37,127 +37,119 @@ class LoginPage extends StatelessWidget {
         body: Container(
           color: Colors.black,
           height: MediaQuery.of(context).size.height - 200,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: kSP50x,
-              ),
-
-              const EasyTextWidget(text: kLogInViaEmailAddressText),
-
-              const SizedBox(
-                height: kSP25x,
-              ),
-
-              ////////////////////////////////////////////
-              /////////////////email text field //////////
-              ////////////////////////////////////////////
-              EasyListTIleWidget(
-                leadingText: kEmailText,
-                title: EasyTextFieldWidget(
-                    controller:
-                        context.getLoginPageBloc().getEmailTextController,
-                    hintText: kEnterYourEmailAddressText,
-                    textInputType: TextInputType.emailAddress),
-              ),
-
-              ////////////////////////////////////////////
-              /////////////////password text field////////
-              ////////////////////////////////////////////
-              EasyListTIleWidget(
-                leadingText: kPasswordText,
-                title: EasyTextFieldWidget(
-                  hintText: kEnterPasswordText,
-                  controller:
-                      context.getLoginPageBloc().getPasswordTextController,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: kSP50x,
                 ),
-              ),
-              const SizedBox(
-                height: kSP10x,
-              ),
 
-              ////////////////////////////////////////////
-              ///////one tap login previous accounts//////
-              ////////////////////////////////////////////
-              Expanded(
-                child: Selector<LoginPageBloc, List<UserVO>>(
-                  selector: (_, obj) => obj.getUsersFromBox,
-                  builder: (_, userFromBox, child) {
-                    return ListView.separated(
+                const EasyTextWidget(text: kLogInViaEmailAddressText),
+
+                const SizedBox(
+                  height: kSP25x,
+                ),
+
+                ////////////////////////////////////////////
+                /////////////////email text field //////////
+                ////////////////////////////////////////////
+                EasyListTIleWidget(
+                  leadingText: kEmailText,
+                  title: EasyTextFieldWidget(
+                      controller:
+                          context.getLoginPageBloc().getEmailTextController,
+                      hintText: kEnterYourEmailAddressText,
+                      textInputType: TextInputType.emailAddress),
+                ),
+
+                ////////////////////////////////////////////
+                /////////////////password text field////////
+                ////////////////////////////////////////////
+                EasyListTIleWidget(
+                  leadingText: kPasswordText,
+                  title: EasyTextFieldWidget(
+                    hintText: kEnterPasswordText,
+                    controller:
+                        context.getLoginPageBloc().getPasswordTextController,
+                  ),
+                ),
+                const SizedBox(
+                  height: kSP10x,
+                ),
+
+                ////////////////////////////////////////////
+                ///////one tap login previous accounts//////
+                ////////////////////////////////////////////
+                Container(
+                  height: MediaQuery.of(context).size.height*0.23,
+                  margin: const EdgeInsets.only(top: kSP20x),
+                  child: Selector<LoginPageBloc,List<UserVO>>(
+                    selector: (_, obj) => obj.getUsersFromBox,
+                    builder: (_, userFromBox, child)=>ListView.separated(
+                      scrollDirection: Axis.horizontal,
                       itemCount: userFromBox.length,
-                      separatorBuilder: (context, index) => const SizedBox(
-                        height: kSP20x,
-                      ),
-                      itemBuilder: (context, index) {
-                        return Container(
+                      separatorBuilder: (context, index) => const SizedBox(width: kSP10x,),
+                      itemBuilder: (context, index) =>GestureDetector(
+                        onTap:  () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const AlertDialog(
+                                backgroundColor: Colors.transparent,
+                                elevation: 0,
+                                content: Center(
+                                    child: CircularProgressIndicator()),
+                              );
+                            },
+                          );
+                          context
+                              .getLoginPageBloc()
+                              .login(userFromBox[index].userEmail??'',userFromBox[index].userPassword??'')
+                              .whenComplete(() {
+                            if (context.getLoginPageBloc().getIsLoading) {
+                              context.navigateBack(context);
+                            }
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(SnackBar(
+                              duration: const Duration(seconds: 2),
+                              content: EasyTextWidget(
+                                text: context
+                                    .getLoginPageBloc()
+                                    .getErrorMessage,
+                              ),
+                              backgroundColor: Colors.green,
+                              margin: const EdgeInsets.only(bottom: kSP40x),
+                              behavior: SnackBarBehavior.floating,
+                            ));
+                            if (context
+                                .getLoginPageBloc()
+                                .getErrorMessage ==
+                                kLoginSuccessText) {
+                              context.navigateRemoveUntil(
+                                  context, const HomePage());
+                            }
+                          });
+                        },
+                        child: Container(
+                          width: 100,
+                          margin: const EdgeInsets.all(kSP10x),
                           decoration: BoxDecoration(
                             color: Colors.blueGrey,
-                            borderRadius: BorderRadius.circular(kSP20x),
+                            borderRadius: BorderRadius.circular(kSP10x),
                           ),
-                          child: ListTile(
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: kSP10x, horizontal: kSP10x),
-                            title: EasyTextWidget(
-                              text: userFromBox[index].userName ?? '',
-                              fontSize: kFZ20,
-                            ),
-                            leading: ClipOval(
-                                child: EasyNetworkImage(
-                              ifNullCondition:
-                                  (userFromBox[index].profilePic == null),
-                              networkImage: userFromBox[index].profilePic ?? '',
-                              imgWidth: kSP50x,
-                              imgHeight: kSP50x,
-                              boxFit: BoxFit.cover,
-                            )),
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const AlertDialog(
-                                    backgroundColor: Colors.transparent,
-                                    elevation: 0,
-                                    content: Center(
-                                        child: CircularProgressIndicator()),
-                                  );
-                                },
-                              );
-                              context
-                                  .getLoginPageBloc()
-                                  .login(userFromBox[index].userEmail??'',userFromBox[index].userPassword??'')
-                                  .whenComplete(() {
-                                if (context.getLoginPageBloc().getIsLoading) {
-                                  context.navigateBack(context);
-                                }
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  duration: const Duration(seconds: 2),
-                                  content: EasyTextWidget(
-                                    text: context
-                                        .getLoginPageBloc()
-                                        .getErrorMessage,
-                                  ),
-                                  backgroundColor: Colors.green,
-                                  margin: const EdgeInsets.only(bottom: kSP40x),
-                                  behavior: SnackBarBehavior.floating,
-                                ));
-                                if (context
-                                        .getLoginPageBloc()
-                                        .getErrorMessage ==
-                                    kLoginSuccessText) {
-                                  context.navigateRemoveUntil(
-                                      context, const HomePage());
-                                }
-                              });
-                            },
+                          child:Column(
+                            children: [
+                              Expanded(child: ClipRRect(borderRadius: BorderRadius.circular(kSP10x),child: EasyNetworkImage(ifNullCondition: (userFromBox[index].profilePic == null), networkImage: userFromBox[index].profilePic ?? '',boxFit: BoxFit.cover,))),
+                              EasyTextWidget(text: userFromBox[index].userName ?? '',fontSize: kFZ20,overflow: TextOverflow.ellipsis,)
+                            ],
                           ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              )
-            ],
+                        ),
+                      ) ,
+                    )
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Container(
