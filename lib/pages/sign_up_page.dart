@@ -8,7 +8,6 @@ import 'package:we_chat/easy_widgets/easy_text_field_widget.dart';
 import 'package:we_chat/easy_widgets/easy_text_form_field_widget.dart';
 import 'package:we_chat/easy_widgets/easy_text_widget.dart';
 import 'package:we_chat/pages/register_email_page.dart';
-import 'package:we_chat/pages/we_chat_new_user_page.dart';
 import 'package:we_chat/utils/extension.dart';
 import '../constant/strings.dart';
 import '../view_widget/sign_up_page/choose_profile_pic_view.dart';
@@ -158,12 +157,24 @@ class SignUpPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(kSP10x)),
                         onPressed: (eligible)
                             ? () {
-                          context.getSignUpPageBLocInstance().checkEligibility(eligible);
-                          context.navigateToNextScreen(context, RegisterEmailPage(
-                            password: context.getSignUpPageBLocInstance().getPasswordTextController.text,
-                            username:  context.getSignUpPageBLocInstance().getNameTextController.text,
-                            profileImagePath: context.getSignUpPageBLocInstance().getProfileImagePath,
-                          ));
+                                context
+                                    .getSignUpPageBLocInstance()
+                                    .checkEligibility(eligible);
+                                context.navigateToNextScreen(
+                                    context,
+                                    RegisterEmailPage(
+                                      password: context
+                                          .getSignUpPageBLocInstance()
+                                          .getPasswordTextController
+                                          .text,
+                                      username: context
+                                          .getSignUpPageBLocInstance()
+                                          .getNameTextController
+                                          .text,
+                                      profileImagePath: context
+                                          .getSignUpPageBLocInstance()
+                                          .getProfileImagePath,
+                                    ));
                               }
                             : null,
                         child: const EasyTextWidget(

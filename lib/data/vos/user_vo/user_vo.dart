@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -40,7 +38,7 @@ class UserVO {
 
   @JsonKey(name: 'last_message_sender_id')
   @HiveField(7)
-  String ? lastMessageSenderId;
+  String? lastMessageSenderId;
 
   UserVO(
       {required this.id,

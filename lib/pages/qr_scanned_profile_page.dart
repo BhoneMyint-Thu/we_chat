@@ -7,7 +7,6 @@ import 'package:we_chat/utils/extension.dart';
 
 import '../bloc/qr_scanned_profile_page_bloc.dart';
 import '../constant/strings.dart';
-import '../utils/assets_images_utils.dart';
 
 class QrScannedProfilePage extends StatelessWidget {
   const QrScannedProfilePage({Key? key, required this.uId}) : super(key: key);
@@ -24,7 +23,6 @@ class QrScannedProfilePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               ////////////////////////////////////////////
               /////////////////profile ///////////////////
               ////////////////////////////////////////////
@@ -32,10 +30,13 @@ class QrScannedProfilePage extends StatelessWidget {
                 selector: (_, obj) => obj.getProfilePic,
                 builder: (context, profilePic, _) => ClipOval(
                   child: SizedBox(
-                    height: kQrScannedProfileHeight,
-                    width: kQrScannedProfileWidth,
-                    child: EasyNetworkImage(ifNullCondition: profilePic.isEmpty,networkImage: profilePic,boxFit: BoxFit.cover,)
-                  ),
+                      height: kQrScannedProfileHeight,
+                      width: kQrScannedProfileWidth,
+                      child: EasyNetworkImage(
+                        ifNullCondition: profilePic.isEmpty,
+                        networkImage: profilePic,
+                        boxFit: BoxFit.cover,
+                      )),
                 ),
               ),
               const SizedBox(
@@ -58,11 +59,9 @@ class QrScannedProfilePage extends StatelessWidget {
                 height: kSP30x,
               ),
 
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-
                   ////////////////////////////////////////////
                   /////////////////cancel button//////////////
                   ////////////////////////////////////////////
@@ -81,14 +80,20 @@ class QrScannedProfilePage extends StatelessWidget {
                   ////////////////////////////////////////////
                   MaterialButton(
                     onPressed: () {
-                      context.getQrScannedProfilePageBloc().checkIfAlreadyFriends(uId??'').whenComplete((){
+                      context
+                          .getQrScannedProfilePageBloc()
+                          .checkIfAlreadyFriends(uId ?? '')
+                          .whenComplete(() {
                         if (!context
                             .getQrScannedProfilePageBloc()
                             .getAlreadyFri) {
                           context.getQrScannedProfilePageBloc().addToContact();
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
                             duration: Duration(seconds: 1),
-                            content: EasyTextWidget(text:kAddedToFriListText,),
+                            content: EasyTextWidget(
+                              text: kAddedToFriListText,
+                            ),
                             backgroundColor: Colors.green,
                           ));
                         } else {
@@ -100,7 +105,7 @@ class QrScannedProfilePage extends StatelessWidget {
                                 backgroundColor: Colors.transparent,
                                 content: EasyTextWidget(
                                   text:
-                                  '${context.getQrScannedProfilePageBloc().getUsername} is already in your friend list!',
+                                      '${context.getQrScannedProfilePageBloc().getUsername} is already in your friend list!',
                                 ),
                                 actions: [
                                   MaterialButton(

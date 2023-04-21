@@ -8,37 +8,41 @@ class ChattingPageBloc extends ChangeNotifier {
   /////////////////Instances//////////////////
   ////////////////////////////////////////////
   final WeChatApply _apply = WeChatApplyImpl();
-  final TextEditingController _textEditingController=TextEditingController();
-  final ScrollController _scrollController=ScrollController();
+  final TextEditingController _textEditingController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   ////////////////////////////////////////////
   /////////////////Attributes/////////////////
   ////////////////////////////////////////////
   bool _isDispose = false;
-  List<MessageVO> _messages=[];
-  bool _isEmptyTextField=true;
+  List<MessageVO> _messages = [];
+  final bool _isEmptyTextField = true;
 
   ////////////////////////////////////////////
   /////////////////Getters////////////////////
   ////////////////////////////////////////////
-  List<MessageVO> get getMessages=>_messages;
+  List<MessageVO> get getMessages => _messages;
 
-  TextEditingController get getTextController=>_textEditingController;
+  TextEditingController get getTextController => _textEditingController;
 
-  ScrollController get getScrollController=>_scrollController;
+  ScrollController get getScrollController => _scrollController;
 
-  bool get getIsEmptyTextField=>_isEmptyTextField;
-
+  bool get getIsEmptyTextField => _isEmptyTextField;
 
   ////////////////////////////////////////////
   /////////////////Methods////////////////////
   ////////////////////////////////////////////
-  MessageVO createMessage(){
-   return  MessageVO(_textEditingController.text, DateTime.now(),_apply.getLoggedInUserId(),DateTime.now().millisecondsSinceEpoch.toString());
+  MessageVO createMessage() {
+    return MessageVO(
+        _textEditingController.text,
+        DateTime.now(),
+        _apply.getLoggedInUserId(),
+        DateTime.now().millisecondsSinceEpoch.toString());
   }
 
-  Future sendMessage(String friendId)=>_apply.sendMessage(friendId, createMessage()).whenComplete(() => _scrollToBottom());
-
+  Future sendMessage(String friendId) => _apply
+      .sendMessage(friendId, createMessage())
+      .whenComplete(() => _scrollToBottom());
 
   void _scrollToBottom() {
     if (_scrollController.hasClients) {
@@ -50,18 +54,16 @@ class ChattingPageBloc extends ChangeNotifier {
     }
   }
 
-  Future deleteMessage(String friendId,String messageId)=>_apply.deleteMessage(friendId, messageId);
-
-
-
+  Future deleteMessage(String friendId, String messageId) =>
+      _apply.deleteMessage(friendId, messageId);
 
   ////////////////////////////////////////////
   /////////////////Constructor////////////////
   ////////////////////////////////////////////
-  ChattingPageBloc(String friendId){
+  ChattingPageBloc(String friendId) {
     _apply.getMessages(friendId).listen((event) {
-      final temp=event??[];
-      _messages=temp;
+      final temp = event ?? [];
+      _messages = temp;
       notifyListeners();
     });
   }

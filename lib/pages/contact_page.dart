@@ -31,69 +31,80 @@ class ContactPage extends StatelessWidget {
         body: Selector<ContactPageBloc, List<UserVO>>(
           selector: (_, obj) => obj.getFriendList,
           builder: (context, friList, _) {
-            return Padding(
-              padding: const EdgeInsets.all(kSP10x),
-              child: GroupedListView<UserVO, String>(
-                elements: friList,
-
-                groupBy: (user) =>
-                    user.userName?.toUpperCase().substring(0, 1) ?? '',
-
-                groupComparator: (group1, group2) => group1.compareTo(group2),
-
-                itemComparator: (item1, item2) =>
-                    item1.userName?.compareTo(item2.userName ?? '') ?? 0,
-
-                groupHeaderBuilder: (element) => SizedBox(
-                  height: kGroupHeaderHeight,
-                  child: Card(
-                    color: Colors.black,
-                    child: Padding(
-                      padding: const EdgeInsets.all(kSP10x),
-                      child: EasyTextWidget(
-                        text: element.userName?.toUpperCase().substring(0, 1) ??
-                            '',
-                      ),
+            return (friList.isEmpty)
+                ? const Center(
+                    child: EasyTextWidget(
+                      text: kNoContactText,
+                      fontSize: kFZ16,
+                      color: Colors.grey,
                     ),
-                  ),
-                ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(kSP10x),
+                    child: GroupedListView<UserVO, String>(
+                      elements: friList,
 
-                ////////////////////////////////////////////
-                /////////////////contact item///////////////
-                ////////////////////////////////////////////
-                itemBuilder: (context, element) {
-                  return Container(
-                    margin: const EdgeInsets.all(kSP10x),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.all(kSP5x),
-                      tileColor: Colors.black12,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(kSP20x)),
-                      title: EasyTextWidget(
-                        text: element.userName ?? '',
-                      ),
-                      leading: ClipOval(
-                        child: EasyNetworkImage(
-                          ifNullCondition: element.profilePic == null,
-                          networkImage: element.profilePic ?? '',
-                          imgWidth: kSP50x,
-                          imgHeight: kSP50x,
-                          boxFit: BoxFit.cover,
+                      groupBy: (user) =>
+                          user.userName?.toUpperCase().substring(0, 1) ?? '',
+
+                      groupComparator: (group1, group2) =>
+                          group1.compareTo(group2),
+
+                      itemComparator: (item1, item2) =>
+                          item1.userName?.compareTo(item2.userName ?? '') ?? 0,
+
+                      groupHeaderBuilder: (element) => SizedBox(
+                        height: kGroupHeaderHeight,
+                        child: Card(
+                          color: Colors.black,
+                          child: Padding(
+                            padding: const EdgeInsets.all(kSP10x),
+                            child: EasyTextWidget(
+                              text: element.userName
+                                      ?.toUpperCase()
+                                      .substring(0, 1) ??
+                                  '',
+                            ),
+                          ),
                         ),
                       ),
-                      onTap: () {
-                        context.navigateToNextScreen(
-                            context,
-                            ChattingPage(
-                              friendId: element.id!,
-                              friendName: element.userName ?? '',
-                            ));
+
+                      ////////////////////////////////////////////
+                      /////////////////contact item///////////////
+                      ////////////////////////////////////////////
+                      itemBuilder: (context, element) {
+                        return Container(
+                          margin: const EdgeInsets.all(kSP10x),
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.all(kSP5x),
+                            tileColor: Colors.black12,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(kSP20x)),
+                            title: EasyTextWidget(
+                              text: element.userName ?? '',
+                            ),
+                            leading: ClipOval(
+                              child: EasyNetworkImage(
+                                ifNullCondition: element.profilePic == null,
+                                networkImage: element.profilePic ?? '',
+                                imgWidth: kSP50x,
+                                imgHeight: kSP50x,
+                                boxFit: BoxFit.cover,
+                              ),
+                            ),
+                            onTap: () {
+                              context.navigateToNextScreen(
+                                  context,
+                                  ChattingPage(
+                                    friendId: element.id!,
+                                    friendName: element.userName ?? '',
+                                  ));
+                            },
+                          ),
+                        );
                       },
                     ),
                   );
-                },
-              ),
-            );
           },
         ),
       ),

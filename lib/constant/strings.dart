@@ -68,6 +68,7 @@ const String kDeleteText='Delete';
 //contact page
 const String kContactPageAppBarTitle='Contact';
 const String kLogOutText='Log out';
+const String kNoContactText='No contact';
 
 //qr scanned profile page
 const String kAddedToFriListText='Added to friend list';

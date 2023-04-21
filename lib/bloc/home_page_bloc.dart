@@ -8,7 +8,6 @@ class HomePageBloc extends ChangeNotifier{
   ////////////////////////////////////////////
   bool _isDispose=false;
   int _currentIndex=WeChatPages.values.first.index;
-  WeChatPages _currentPage=WeChatPages.values.first;
 
   ////////////////////////////////////////////
   /////////////////Getters////////////////////
