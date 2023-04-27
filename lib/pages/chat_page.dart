@@ -18,7 +18,6 @@ class ChatPage extends StatelessWidget {
     return ChangeNotifierProvider<ChatPageBloc>(
       create: (context) => ChatPageBloc(),
       builder: (context, child) => Scaffold(
-        backgroundColor: Colors.black,
         body: Selector<ChatPageBloc, List<UserVO>>(
           selector: (_, obj) => obj.getChattingFriends,
           shouldRebuild: (previous, next) => previous == next,

@@ -22,7 +22,6 @@ class ChattingPage extends StatelessWidget {
     return ChangeNotifierProvider<ChattingPageBloc>(
       create: (context) => ChattingPageBloc(friendId),
       builder: (context, child) => Scaffold(
-        backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: EasyTextWidget(

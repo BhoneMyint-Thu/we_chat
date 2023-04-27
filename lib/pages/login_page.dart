@@ -21,7 +21,6 @@ class LoginPage extends StatelessWidget {
     return ChangeNotifierProvider<LoginPageBloc>(
       create: (context) => LoginPageBloc(),
       builder: (context, child) => Scaffold(
-        backgroundColor: Colors.black,
         appBar: AppBar(
           elevation: appBarElevation,
           backgroundColor: Colors.transparent,

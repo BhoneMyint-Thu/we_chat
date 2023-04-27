@@ -18,7 +18,6 @@ class QrScannedProfilePage extends StatelessWidget {
     return ChangeNotifierProvider<QrScannedProfilePageBloc>(
       create: (context) => QrScannedProfilePageBloc(uId),
       builder: (context, child) => Scaffold(
-        backgroundColor: Colors.black,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

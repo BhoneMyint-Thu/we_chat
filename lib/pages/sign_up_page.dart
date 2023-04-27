@@ -23,7 +23,6 @@ class SignUpPage extends StatelessWidget {
       builder: (context, child) => Form(
         key: context.getSignUpPageBLocInstance().getGlobalKey,
         child: Scaffold(
-          backgroundColor: Colors.black,
           appBar: AppBar(
             elevation: appBarElevation,
             backgroundColor: Colors.transparent,

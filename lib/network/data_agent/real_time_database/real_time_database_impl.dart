@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:we_chat/data/vos/message_vo/message_vo.dart';
+import 'package:we_chat/data/vos/post_vo/post_vo.dart';
 import 'package:we_chat/network/data_agent/real_time_database/real_time_database.dart';
 
 import '../../../constant/strings.dart';
@@ -76,4 +77,11 @@ class RealTimeDatabaseImpl extends RealTimeDataBase {
         .child(messageId)
         .remove();
   }
+
+  @override
+  Future<void> createPost(PostVO post)=>_database
+      .child(kRootNodeForPosts)
+      .child(auth.currentUser?.uid ?? '')
+      .child(post.postId??'')
+      .set(post.toJson());
 }

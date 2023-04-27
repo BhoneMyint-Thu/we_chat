@@ -23,7 +23,6 @@ class HomePage extends StatelessWidget {
               selector: (_, obj) => obj.getCurrentIndex,
               builder: (context, pageIndex, _) {
                 return Scaffold(
-                  backgroundColor: Colors.black,
                   appBar: (pageIndex == WeChatPages.values.first.index)
                       ? AppBar(
                           automaticallyImplyLeading: false,

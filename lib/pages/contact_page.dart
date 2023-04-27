@@ -19,7 +19,6 @@ class ContactPage extends StatelessWidget {
     return ChangeNotifierProvider<ContactPageBloc>(
       create: (context) => ContactPageBloc(),
       builder: (context, child) => Scaffold(
-        backgroundColor: Colors.black,
         appBar: AppBar(
           centerTitle: true,
           title: const EasyTextWidget(

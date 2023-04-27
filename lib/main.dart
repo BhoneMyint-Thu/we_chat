@@ -6,7 +6,6 @@ import 'package:we_chat/data/vos/user_vo/user_vo.dart';
 import 'package:we_chat/pages/home_page.dart';
 import 'package:we_chat/pages/we_chat_new_user_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import 'constant/hive_constant.dart';
 import 'constant/strings.dart';
 
@@ -35,7 +34,9 @@ class MyApp extends StatelessWidget {
       color: Colors.black,
       debugShowCheckedModeBanner: false,
       title:kAppTitle,
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+                scaffoldBackgroundColor: Colors.black
+      ),
       home: (apply.isLoggedIn())?const HomePage() :const WeChatNewUserPage(),
     );
   }

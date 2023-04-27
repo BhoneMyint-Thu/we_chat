@@ -6,6 +6,7 @@ const String kRootNodeForUsers='Users';
 const String kRootNodeForFirebaseStorageUpload='Uploads';
 const String kContactNode='Contacts';
 const String kRootNodeForMessages='Messages';
+const String kRootNodeForPosts='Posts';
 const String kSomeThingWentWrongText='Something went wrong!Try again.';
 
 //sign up page

@@ -27,7 +27,6 @@ class RegisterEmailPage extends StatelessWidget {
     return ChangeNotifierProvider<RegisterEmailPageBloc>(
       create: (context) => RegisterEmailPageBloc(),
       builder: (context, child) => Scaffold(
-        backgroundColor: Colors.black,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         ////////////////////////////////////////////
         /////////////////Sign up button/////////////
